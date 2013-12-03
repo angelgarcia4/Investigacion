@@ -19,7 +19,7 @@ function init(){
 	text.y = 100;
 	
 	img = new Image();
-	img.src = "img/logo.png";
+	img.src = "img/nanito.png";
 	img.onload = setImg;
 }
 
@@ -27,7 +27,7 @@ function setImg(event){
 	logo = new Bitmap(img);
 	stage.addChild(logo);
 	logo.x = canvas.width;
-	logo.y = canvas.height/2 - 100;
+	logo.y = canvas.height/8 - 100;
 	stage.addChild(text);
 	
 	Ticker.addListener(window);
