@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello World</title>
+	<script src="http://code.createjs.com/easeljs-0.7.0.min.js"></script>
+	<script>
+		
+		var stage, text;
+		function init() {
+			stage = new createjs.Stage("demoCanvas");
+			
+			text = new createjs.Text("Ciao Mondo!!", "bold 86px Arial", "#ff7700");
+			
+			text.y = 50;
+			text.x = 0;
+						
+			stage.addChild(text);
+			
+			stage.mouseMoveOutside = true; 
+
+			
+			// Stage will pass delta when it calls stage.update(arg)
+			// which will pass them to tick event handlers for us in time based animation.
+			text.addEventListener("tick", function(event) {
+                var tickerEvent = event.params[0];
+                var delta = tickerEvent.delta;
+                text.y += delta/1000*100;
+                if (text.y > stage.canvas.height) { text.y = 0; }
+            });
+			
+			createjs.Ticker.addEventListener("tick", tick);
+		}
+
+
+        function tick(event) {
+            stage.update(event);
+        }
+	</script>
+</head>
+<body onLoad="init();">
+	<canvas id="demoCanvas" width="900" height="300">
+		alternate content
+	</canvas>
+</body>
+</html>
