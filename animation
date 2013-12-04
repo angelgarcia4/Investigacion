@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CreateJS export from nanito</title>
+
+<script src="http://code.createjs.com/easeljs-0.6.0.min.js"></script>
+<script src="http://code.createjs.com/tweenjs-0.4.0.min.js"></script>
+<script src="http://code.createjs.com/movieclip-0.6.0.min.js"></script>
+<script src="http://code.createjs.com/preloadjs-0.3.0.min.js"></script>
+<script src="nanito.js"></script>
+
+<script>
+var canvas, stage, exportRoot;
+
+function init() {
+	canvas = document.getElementById("canvas");
+	images = images||{};
+
+	var manifest = [
+		{src:"images/nano1.png", id:"nano1"},
+		{src:"images/nano10.png", id:"nano10"},
+		{src:"images/nano11.png", id:"nano11"},
+		{src:"images/nano2.png", id:"nano2"},
+		{src:"images/nano3.png", id:"nano3"},
+		{src:"images/nano4.png", id:"nano4"},
+		{src:"images/nano5.png", id:"nano5"},
+		{src:"images/nano6.png", id:"nano6"},
+		{src:"images/nano7.png", id:"nano7"},
+		{src:"images/nano8.png", id:"nano8"},
+		{src:"images/nano9.png", id:"nano9"}
+	];
+
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", handleFileLoad);
+	loader.addEventListener("complete", handleComplete);
+	loader.loadManifest(manifest);
+}
+
+function handleFileLoad(evt) {
+	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }
+}
+
+function handleComplete() {
+	exportRoot = new lib.nanito();
+
+	stage = new createjs.Stage(canvas);
+	stage.addChild(exportRoot);
+	stage.update();
+
+	createjs.Ticker.setFPS(24);
+	createjs.Ticker.addEventListener("tick", stage);
+}
+</script>
+</head>
+
+<body onload="init();" style="background-color:#D4D4D4">
+	<canvas id="canvas" width="550" height="400" style="background-color:#ffffff"></canvas>
+</body>
+</html>
